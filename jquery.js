@@ -90,7 +90,7 @@ var jQuery = function(selector = null){
 
   if (selector) {
     if (selector instanceof Element) {
-      return self.setElement([selector]);
+      return this.setElement([selector]);
     }
     else {
       var m, s;
