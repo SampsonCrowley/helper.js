@@ -72,6 +72,9 @@ var jQuery = function(selector = null){
   };
 
   this.setSelector = function(){
+    if (selector.match(/\s/)){
+      return this.setElement(document.querySelectorAll(selector));
+    }
     if (selector instanceof HTMLCollection) {
       return this.setElement(selector);
     }
