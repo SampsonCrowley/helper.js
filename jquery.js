@@ -14,24 +14,29 @@ var jQuery = function(selector = null){
 
   };
 
+  this.setElement = function() {
+    this.elem.element = this.elem.elements[0];
+    this.elem.length = this.elem.elements.length;
+  };
+
   this.getElement = function(tag){
     console.log("by tag");
     this.elem.elements = document.getElementsByTagName(tag);
-    this.elem.element = this.elem.elements[0];
+    this.setElement();
     return this.elem;
   };
 
   this.getByClass = function(className){
     console.log("by class");
     this.elem.elements = document.getElementsByClassName(className);
-    this.elem.element = this.elem.elements[0];
+    this.setElement();
     return this.elem;
   };
 
   this.getById = function(id){
     console.log("by id");
     this.elem.elements = [document.getElementById(id)];
-    this.elem.element = this.elem.elements[0];
+    this.setElement();
     return this.elem;
   };
 
@@ -82,20 +87,24 @@ var jQuery = function(selector = null){
   };
 
   if (selector) {
-    if(selector[0].match(/[a-zA-Z]/)){
+    if (selector instanceof Element) {
+
+    }
+    else if (selector[0].match(/[a-zA-Z]/)){
       return this.getElement(selector);
     } else {
       return {
-        ".": this.getByClass,
-        "#": this.getById
+        ".": function(className) {
+          this.setElement(document.getElementsByClassName(className));
+        },
+        "#": function(id) {
+          this.setElement([document.getElementById(id)]);
+        }
       }[selector[0]](selector.slice(1));
     }
   }
 
 };
-
-
-
 
 
 console.log(jQuery('h1'));
