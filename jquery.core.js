@@ -5,7 +5,6 @@ var jQuery = function(selector = null){
   }
 
   this.elem = {
-    element: null,
     elements: [],
     length: 0,
     idx: function(i){
@@ -16,31 +15,17 @@ var jQuery = function(selector = null){
 
   this.setElement = function(domNode) {
     this.elem.elements = domNode;
-    this.elem.element = this.elem.elements[0];
     this.elem.length = this.elem.elements.length;
     return this.elem;
   };
 
-  // this.getElement = function(tag){
-  //   console.log("by tag");
-  //   this.elem.elements = document.getElementsByTagName(tag);
-  //   this.setElement();
-  //   return this.elem;
-  // };
-  //
-  // this.getByClass = function(className){
-  //   console.log("by class");
-  //   this.elem.elements = document.getElementsByClassName(className);
-  //   this.setElement();
-  //   return this.elem;
-  // };
-  //
-  // this.getById = function(id){
-  //   console.log("by id");
-  //   this.elem.elements = [document.getElementById(id)];
-  //   this.setElement();
-  //   return this.elem;
-  // };
+  this.map = function(collection,funct){
+    let newArr = []
+    for(i = 0; i < collection.length; i++){
+      newArr.push(funct(collection[i], i));
+    }
+    return newArr;
+  };
 
   this.ready = function(funct) {
 
@@ -88,35 +73,40 @@ var jQuery = function(selector = null){
     }
   };
 
-  if (selector) {
-    if (selector instanceof Element) {
+  this.setSelector = function(){
+    if (selector instanceof HTMLCollection) {
+      return this.setElement(this.map(selector, function(elem){
+        return elem;
+      }));
+    }
+    if (selector instanceof Element || selector.nodeType) {
       return this.setElement([selector]);
     }
-    else {
-      var m, s;
-      if (selector[0].match(/[a-zA-Z]/)){
-        m = "tag"; s = selector;
-      } else {
-        m = selector[0]; s = selector.slice(1);
-      }
-      return this.setElement({
-        ".": function(className) {
-              return document.getElementsByClassName(className);
-            },
-        "#": function(id) {
-              return [document.getElementById(id)];
-            },
-        tag: function(tag){
-            return document.getElementsByTagName(tag);
-          }
-      }[m](s));
+
+    var m, s;
+    if (selector[0].match(/[a-zA-Z]/)){
+      m = "tag"; s = selector;
+    } else {
+      m = selector[0]; s = selector.slice(1);
     }
+    return this.setElement({
+      ".": function(className) {
+        return document.getElementsByClassName(className);
+      },
+      "#": function(id) {
+        return [document.getElementById(id)];
+      },
+      tag: function(tag){
+        return document.getElementsByTagName(tag);
+      }
+    }[m](s));
   }
 
+  if (selector) {
+    this.setSelector(selector);
+  }
+
+  return this;
+
 };
-
-
-console.log(jQuery('h1'));
-jQuery().ready(function() {
-  console.log(jQuery('h1'));
-});
+$ = jQuery;

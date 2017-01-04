@@ -71,19 +71,3 @@ var SimpleObject = function(arr = [], funct = null) {
   }
 
 }
-
-// Class method of each
-// SimpleObject.each = function(array, funct) {
-//   for (var i = 0; i < array.length; i++) {
-//     funct(array[i], i);
-//   }
-//   return array;
-// };
-//
-// s = new SimpleObject([1,2,3]);
-//
-// console.log(s.map(function(el, i){
-//   return el * 2;
-// }));
-//
-// console.log(SimpleObject);
