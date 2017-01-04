@@ -42,25 +42,50 @@ $p.val = function(val = undefined){
   if(val !== undefined){
     this.each(function(el) {
       el.value = val;
-    }
+    });
   }
   return this.el.idx(0).value;
-}
+};
 
 $p.css = function(prop, val = undefined){
   if(val !== undefined){
     this.each(function(el) {
       el.style[prop] = val;
-    }
+    });
   }
   return this.el.idx(0).style[prop];
-}
+};
 
-$p.height = function(prop, val = undefined){
-  if(val !== undefined){
+$p.height = function(val = undefined){
+  return this.css('height', val);
+};
+
+$p.width = function(val = undefined){
+  return this.css('width', val);
+};
+
+$p.attr = function(attr, val = undefined){
+  if (val === null) {
     this.each(function(el) {
-      el.style[prop] = val;
-    }
+      el.removeAttribute(attr);
+    });
+  } else if (val !== undefined) {
+    this.each(function(el) {
+      el.setAttribute(attr, val);
+    });
   }
-  return this.el.idx(0).style[prop];
-}
+  return this.el.idx(0).getAttribute(attr);
+};
+
+$p.html = function(html = undefined) {
+  if (html !== undefined) {
+    this.each(function(el) {
+      el.innerHTML = html;
+    });
+  }
+  return this.el.idx(0).innerHTML;
+};
+
+
+
+
