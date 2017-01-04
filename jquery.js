@@ -14,31 +14,33 @@ var jQuery = function(selector = null){
 
   };
 
-  this.setElement = function() {
+  this.setElement = function(domNode) {
+    this.elem.elements = domNode;
     this.elem.element = this.elem.elements[0];
     this.elem.length = this.elem.elements.length;
-  };
-
-  this.getElement = function(tag){
-    console.log("by tag");
-    this.elem.elements = document.getElementsByTagName(tag);
-    this.setElement();
     return this.elem;
   };
 
-  this.getByClass = function(className){
-    console.log("by class");
-    this.elem.elements = document.getElementsByClassName(className);
-    this.setElement();
-    return this.elem;
-  };
-
-  this.getById = function(id){
-    console.log("by id");
-    this.elem.elements = [document.getElementById(id)];
-    this.setElement();
-    return this.elem;
-  };
+  // this.getElement = function(tag){
+  //   console.log("by tag");
+  //   this.elem.elements = document.getElementsByTagName(tag);
+  //   this.setElement();
+  //   return this.elem;
+  // };
+  //
+  // this.getByClass = function(className){
+  //   console.log("by class");
+  //   this.elem.elements = document.getElementsByClassName(className);
+  //   this.setElement();
+  //   return this.elem;
+  // };
+  //
+  // this.getById = function(id){
+  //   console.log("by id");
+  //   this.elem.elements = [document.getElementById(id)];
+  //   this.setElement();
+  //   return this.elem;
+  // };
 
   this.ready = function(funct) {
 
@@ -88,19 +90,26 @@ var jQuery = function(selector = null){
 
   if (selector) {
     if (selector instanceof Element) {
-
+      return self.setElement([selector]);
     }
-    else if (selector[0].match(/[a-zA-Z]/)){
-      return this.getElement(selector);
-    } else {
-      return {
+    else {
+      var m, s;
+      if (selector[0].match(/[a-zA-Z]/)){
+        m = "tag"; s = selector;
+      } else {
+        m = selector[0]; s = selector.slice(1);
+      }
+      return this.setElement({
         ".": function(className) {
-          this.setElement(document.getElementsByClassName(className));
-        },
+              return document.getElementsByClassName(className);
+            },
         "#": function(id) {
-          this.setElement([document.getElementById(id)]);
-        }
-      }[selector[0]](selector.slice(1));
+              return [document.getElementById(id)];
+            },
+        tag: function(tag){
+            return document.getElementsByTagName(tag);
+          }
+      }[m](s));
     }
   }
 
