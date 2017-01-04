@@ -1,7 +1,5 @@
 $ = $ || function jQuery(){};
-$.hasClass = function(el, className) {
-  el.classList.contains(className);
-};
+
 $p = $.prototype;
 
 $p.each = function(funct) {
@@ -18,26 +16,3 @@ $p.any = function(funct){
   }
   return false;
 };
-
-$p.hasClass = function(className) {
-  return this.any(function(el){
-    return $.hasClass(el, className);
-  });
-};
-
-$p.addClass = function(className) {
-  this.each(function(el) {
-    if (!$.hasClass(el, className)) {
-      el.classList.add(className);
-    }
-  });
-  return this;
-};
-
-$p.removeClass = function(className) {
-  this.each(function(el) {
-    el.classList.remove(className);
-  });
-};
-
-
