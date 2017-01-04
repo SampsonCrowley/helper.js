@@ -55,6 +55,14 @@ var SimpleObject = function(arr = [], funct = null) {
     return this.collection;
   };
 
+  this.map = function(funct){
+    let newArr = []
+    for(i = 0; i < this.collection.length; i++){
+      newArr.push(funct(this.collection[i], i));
+    }
+    return newArr;
+  };
+
   if((typeof arr === 'object' || typeof arr === 'string') && arr.length > 0){
     console.log('57 ran');
     for(i = 0; i < arr.length; i++){
@@ -65,13 +73,17 @@ var SimpleObject = function(arr = [], funct = null) {
 }
 
 // Class method of each
-SimpleObject.each = function(array, funct) {
-  for (var i = 0; i < array.length; i++) {
-    funct(array[i], i);
-  }
-  return array;
-};
-
-s = new SimpleObject([1,2,3]);
-
-console.log(SimpleObject);
+// SimpleObject.each = function(array, funct) {
+//   for (var i = 0; i < array.length; i++) {
+//     funct(array[i], i);
+//   }
+//   return array;
+// };
+//
+// s = new SimpleObject([1,2,3]);
+//
+// console.log(s.map(function(el, i){
+//   return el * 2;
+// }));
+//
+// console.log(SimpleObject);
