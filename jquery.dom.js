@@ -43,6 +43,7 @@ $p.val = function(val = undefined){
     this.each(function(el) {
       el.value = val;
     });
+    return this;
   }
   return this.el.idx(0).value;
 };
@@ -52,6 +53,7 @@ $p.css = function(prop, val = undefined){
     this.each(function(el) {
       el.style[prop] = val;
     });
+    return this;
   }
   return this.el.idx(0).style[prop];
 };
@@ -69,10 +71,12 @@ $p.attr = function(attr, val = undefined){
     this.each(function(el) {
       el.removeAttribute(attr);
     });
+    return this;
   } else if (val !== undefined) {
     this.each(function(el) {
       el.setAttribute(attr, val);
     });
+    return this;
   }
   return this.el.idx(0).getAttribute(attr);
 };
@@ -82,10 +86,7 @@ $p.html = function(html = undefined) {
     this.each(function(el) {
       el.innerHTML = html;
     });
+    return this;
   }
   return this.el.idx(0).innerHTML;
 };
-
-
-
-

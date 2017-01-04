@@ -6,6 +6,7 @@ $p.each = function(funct) {
   for(var i = 0; i < this.el.length; i++){
     funct(this.el.idx(i), i);
   }
+  return this;
 };
 
 $p.any = function(funct){
