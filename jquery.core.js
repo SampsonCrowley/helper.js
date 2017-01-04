@@ -4,7 +4,7 @@ var jQuery = function(selector = null){
     return new jQuery(selector);
   }
 
-  this.elem = {
+  this.el = {
     elements: [],
     length: 0,
     idx: function(i){
@@ -13,18 +13,16 @@ var jQuery = function(selector = null){
 
   };
 
-  this.setElement = function(domNode) {
-    this.elem.elements = domNode;
-    this.elem.length = this.elem.elements.length;
-    return this.elem;
+  this.setElement = function(domNodes) {
+    this.pushToCollection(domNodes);
+    this.el.length = this.el.elements.length;
+    return this.el;
   };
 
-  this.map = function(collection,funct){
-    let newArr = []
+  this.pushToCollection = function(collection){
     for(i = 0; i < collection.length; i++){
-      newArr.push(funct(collection[i], i));
+      this.el.elements.push(collection[i]);
     }
-    return newArr;
   };
 
   this.ready = function(funct) {
@@ -75,9 +73,7 @@ var jQuery = function(selector = null){
 
   this.setSelector = function(){
     if (selector instanceof HTMLCollection) {
-      return this.setElement(this.map(selector, function(elem){
-        return elem;
-      }));
+      return this.setElement(selector);
     }
     if (selector instanceof Element || selector.nodeType) {
       return this.setElement([selector]);

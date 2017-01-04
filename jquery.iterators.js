@@ -1,14 +1,18 @@
-$ = $ || function jQuery(){}
+$ = $ || function jQuery(){};
+$.hasClass = function(el, className) {
+  el.classList.contains(className);
+};
 $p = $.prototype;
-$.each = function() {
 
+$p.each = function(funct) {
+  for(var i = 0; i < this.el.length; i++){
+    funct(this.el.idx(i), i);
+  }
 };
-$.map = function() {
 
-};
 $p.any = function(funct){
-  for(var i = 0; i < this.elem.length; i++){
-    if(funct(this.elem.idx(i))){
+  for(var i = 0; i < this.el.length; i++){
+    if(funct(this.el.idx(i))){
       return true;
     }
   }
@@ -16,7 +20,24 @@ $p.any = function(funct){
 };
 
 $p.hasClass = function(className) {
-  return this.any(function(elem){
-    return elem.classList.contains(className);
-  }
+  return this.any(function(el){
+    return $.hasClass(el, className);
+  });
 };
+
+$p.addClass = function(className) {
+  this.each(function(el) {
+    if (!$.hasClass(el, className)) {
+      el.classList.add(className);
+    }
+  });
+  return this;
+};
+
+$p.removeClass = function(className) {
+  this.each(function(el) {
+    el.classList.remove(className);
+  });
+};
+
+
