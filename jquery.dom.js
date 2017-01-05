@@ -101,6 +101,13 @@ $p.text = function(text = undefined) {
   return this.el.idx(0).innerText;
 };
 
+$p.after = function(el){
+  this.each(function(sibling){
+    sibling.parentNode.insertBefore(el, sibling.nextSibling)
+  })
+  return this;
+}
+
 $p.append = function(el) {
   this.each(function(parent){
     parent.appendChild(el);
@@ -108,6 +115,23 @@ $p.append = function(el) {
   return this;
 }
 
+$p.replaceWith = function(el) {
+  this.each(function(parent){
+    parent.outerHTML = el.outerHTML;
+  })
+  return this;
+}
+
+$p.remove = function(){
+  this.each(function(el){
+    el.parentNode.removeChild(el);
+  })
+}
+
 $p.children = function(){
   return $(this.el.idx(0).childNodes);
+}
+
+$p.parent = function(){
+  return $(this.el.idx(0).parentNode);
 }
