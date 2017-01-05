@@ -71,7 +71,7 @@ var jQuery = function(selector = null){
         }
       };
 
-    }else {
+    } else {
       window.addEventListener('load', funct, false);
     }
   };
@@ -80,33 +80,33 @@ var jQuery = function(selector = null){
     if (selector.match(/\</)){
       return this.setElement(this.createElement(selector));
     }
-    if (selector.match(/\s/)){
+    // if (selector.match(/\s/)){
       return this.setElement(document.querySelectorAll(selector));
-    }
-    if (selector instanceof HTMLCollection) {
-      return this.setElement(selector);
-    }
-    if (selector instanceof Element || selector.nodeType) {
-      return this.setElement([selector]);
-    }
-
-    var m, s;
-    if (selector[0].match(/[a-zA-Z]/)){
-      m = "tag"; s = selector;
-    } else {
-      m = selector[0]; s = selector.slice(1);
-    }
-    return this.setElement({
-      ".": function(className) {
-        return document.getElementsByClassName(className);
-      },
-      "#": function(id) {
-        return [document.getElementById(id)];
-      },
-      tag: function(tag){
-        return document.getElementsByTagName(tag);
-      }
-    }[m](s));
+    // }
+    // if (selector instanceof HTMLCollection) {
+    //   return this.setElement(selector);
+    // }
+    // if (selector instanceof Element || selector.nodeType) {
+    //   return this.setElement([selector]);
+    // }
+    //
+    // var m, s;
+    // if (selector[0].match(/[a-zA-Z]/)){
+    //   m = "tag"; s = selector;
+    // } else {
+    //   m = selector[0]; s = selector.slice(1);
+    // }
+    // return this.setElement({
+    //   ".": function(className) {
+    //     return document.getElementsByClassName(className);
+    //   },
+    //   "#": function(id) {
+    //     return [document.getElementById(id)];
+    //   },
+    //   tag: function(tag){
+    //     return document.getElementsByTagName(tag);
+    //   }
+    // }[m](s));
   }
 
   if (selector) {
