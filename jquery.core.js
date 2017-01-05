@@ -13,6 +13,11 @@ var jQuery = function(selector = null){
 
   };
 
+  this.createElement = function(tag) {
+    tag = tag.slice(1,tag.length - 1);
+    return document.createElement(tag);
+  }
+
   this.setElement = function(domNodes) {
     this.pushToCollection(domNodes);
     this.el.length = this.el.elements.length;
@@ -71,7 +76,10 @@ var jQuery = function(selector = null){
     }
   };
 
-  this.setSelector = function(){
+  this.setSelector = function(selector){
+    if (selector.match(/\</)){
+      return this.setElement(this.createElement(selector));
+    }
     if (selector.match(/\s/)){
       return this.setElement(document.querySelectorAll(selector));
     }

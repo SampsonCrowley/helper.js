@@ -90,3 +90,24 @@ $p.html = function(html = undefined) {
   }
   return this.el.idx(0).innerHTML;
 };
+
+$p.text = function(text = undefined) {
+  if (text !== undefined) {
+    this.each(function(el) {
+      el.innerText = text;
+    });
+    return this;
+  }
+  return this.el.idx(0).innerText;
+};
+
+$p.append = function(el) {
+  this.each(function(parent){
+    parent.appendChild(el);
+  })
+  return this;
+}
+
+$p.children = function(){
+  return $(this.el.idx(0).childNodes);
+}
