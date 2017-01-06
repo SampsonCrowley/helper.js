@@ -1,35 +1,35 @@
-$ = $ || function jQuery(){};
-$p = $.prototype;
+$_ = $_ || function Helper(){};
+$_p = $_.prototype;
 
-$.hasClass = function(el, className) {
+$_.hasClass = function(el, className) {
   return el.classList.contains(className);
 };
 
-$p.hasClass = function(className) {
+$_p.hasClass = function(className) {
   return this.any(function(el){
-    return $.hasClass(el, className);
+    return $_.hasClass(el, className);
   });
 };
 
-$p.addClass = function(className) {
+$_p.addClass = function(className) {
   this.each(function(el) {
-    if (!$.hasClass(el, className)) {
+    if (!$_.hasClass(el, className)) {
       el.classList.add(className);
     }
   });
   return this;
 };
 
-$p.removeClass = function(className) {
+$_p.removeClass = function(className) {
   this.each(function(el) {
     el.classList.remove(className);
   });
   return this;
 };
 
-$p.toggleClass = function(className) {
+$_p.toggleClass = function(className) {
   this.each(function(el) {
-    if ($.hasClass(el, className)) {
+    if ($_.hasClass(el, className)) {
       el.classList.remove(className);
     } else {
       el.classList.add(className);
@@ -38,7 +38,7 @@ $p.toggleClass = function(className) {
   return this;
 };
 
-$p.val = function(val = undefined){
+$_p.val = function(val = undefined){
   if(val !== undefined){
     this.each(function(el) {
       el.value = val;
@@ -48,7 +48,7 @@ $p.val = function(val = undefined){
   return this.el.idx(0).value;
 };
 
-$p.css = function(prop, val = undefined){
+$_p.css = function(prop, val = undefined){
   if(val !== undefined){
     this.each(function(el) {
       el.style[prop] = val;
@@ -58,15 +58,15 @@ $p.css = function(prop, val = undefined){
   return this.el.idx(0).style[prop];
 };
 
-$p.height = function(val = undefined){
+$_p.height = function(val = undefined){
   return this.css('height', val);
 };
 
-$p.width = function(val = undefined){
+$_p.width = function(val = undefined){
   return this.css('width', val);
 };
 
-$p.attr = function(attr, val = undefined){
+$_p.attr = function(attr, val = undefined){
   if (val === null) {
     this.each(function(el) {
       el.removeAttribute(attr);
@@ -81,7 +81,7 @@ $p.attr = function(attr, val = undefined){
   return this.el.idx(0).getAttribute(attr);
 };
 
-$p.html = function(html = undefined) {
+$_p.html = function(html = undefined) {
   if (html !== undefined) {
     this.each(function(el) {
       el.innerHTML = html;
@@ -91,7 +91,7 @@ $p.html = function(html = undefined) {
   return this.el.idx(0).innerHTML;
 };
 
-$p.text = function(text = undefined) {
+$_p.text = function(text = undefined) {
   if (text !== undefined) {
     this.each(function(el) {
       el.innerText = text;
@@ -101,37 +101,37 @@ $p.text = function(text = undefined) {
   return this.el.idx(0).innerText;
 };
 
-$p.after = function(el){
+$_p.after = function(el){
   this.each(function(sibling){
     sibling.parentNode.insertBefore(el, sibling.nextSibling)
   })
   return this;
 }
 
-$p.append = function(el) {
+$_p.append = function(el) {
   this.each(function(parent){
     parent.appendChild(el);
   })
   return this;
 }
 
-$p.replaceWith = function(el) {
+$_p.replaceWith = function(el) {
   this.each(function(parent){
     parent.outerHTML = el.outerHTML;
   })
   return this;
 }
 
-$p.remove = function(){
+$_p.remove = function(){
   this.each(function(el){
     el.parentNode.removeChild(el);
   })
 }
 
-$p.children = function(){
-  return $(this.el.idx(0).childNodes);
+$_p.children = function(){
+  return $_(this.el.idx(0).childNodes);
 }
 
-$p.parent = function(){
-  return $(this.el.idx(0).parentNode);
+$_p.parent = function(){
+  return $_(this.el.idx(0).parentNode);
 }

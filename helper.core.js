@@ -1,7 +1,7 @@
-var jQuery = function(selector = null){
+var Helper = function(selector = null){
 
-  if(!(this instanceof jQuery)){
-    return new jQuery(selector);
+  if(!(this instanceof Helper)){
+    return new Helper(selector);
   }
 
   this.el = {
@@ -116,4 +116,4 @@ var jQuery = function(selector = null){
   return this;
 
 };
-$ = jQuery;
+$_ = Helper;
